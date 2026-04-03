@@ -274,3 +274,37 @@
 }
 
 .animate-shake { animation: shake 0.5s ease-in-out; }
+
+/* ── Button hover scale ──────────────────────────────────────────── */
+.btn-scale {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-scale:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+.btn-scale:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ── Progress bar animate from 0 on mount ──────────────────────────── */
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+.progress-animated {
+  animation: progress-fill 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ── Page fade-in ──────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-fade-in {
+  animation: fade-up 0.2s ease-out both;
+}
+
+/* ── Focus ring utilities ──────────────────────────────────────────── */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+}

@@ -1,4 +1,5 @@
 import { redirect, notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   BookOpen,
@@ -17,6 +18,29 @@ function getMasteryBucket(repetitions: number, intervalDays: number): MasteryBuc
   if (repetitions <= 1) return "learning";
   if (intervalDays < 21) return "reviewing";
   return "mastered";
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ eventId: string }>;
+}): Promise<Metadata> {
+  const { eventId } = await params;
+  const { createClient } = await import("@/lib/supabase-server");
+  const supabase = await createClient();
+  const { data: event } = await supabase
+    .from("events")
+    .select("name, category, description")
+    .eq("id", eventId)
+    .single();
+
+  if (!event) return { title: "Event — PinPoint" };
+  return {
+    title: `${event.name} — PinPoint`,
+    description:
+      event.description ??
+      `Study ${event.name} (${event.category}) with spaced repetition flashcards on PinPoint.`,
+  };
 }
 
 // Convert hex color to rgba string

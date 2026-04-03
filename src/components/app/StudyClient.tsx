@@ -484,8 +484,17 @@ export default function StudyClient({
             <div
               className={`card-scene w-full cursor-pointer ${slideClass}`}
               style={{ height: "280px" }}
+              role="button"
+              tabIndex={0}
+              aria-label={isFlipped ? "Card answer (click to flip back)" : "Card question (click to reveal answer)"}
               onClick={() => {
                 if (!isAnimating) setIsFlipped((f) => !f);
+              }}
+              onKeyDown={(e) => {
+                if ((e.code === "Space" || e.code === "Enter") && !isAnimating) {
+                  e.preventDefault();
+                  setIsFlipped((f) => !f);
+                }
               }}
             >
               <div className={`card-inner ${isFlipped ? "is-flipped" : ""}`}>
@@ -554,7 +563,8 @@ export default function StudyClient({
                       key={quality}
                       onClick={() => handleRate(quality)}
                       disabled={isAnimating}
-                      className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border font-semibold text-sm transition-all duration-150 disabled:opacity-50 ${bg} focus:outline-none focus:ring-2 ${RATINGS.find((r) => r.quality === quality)?.ring}`}
+                      aria-label={`Rate as ${label} — next review in ${formatInterval(preview.interval)}`}
+                      className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border font-semibold text-sm transition-all duration-150 disabled:opacity-50 btn-scale min-h-[44px] ${bg} focus:outline-none focus:ring-2 ${RATINGS.find((r) => r.quality === quality)?.ring}`}
                     >
                       <span>{label}</span>
                       <span className="text-[11px] font-normal opacity-70">
@@ -572,7 +582,8 @@ export default function StudyClient({
             {!isFlipped && (
               <button
                 onClick={() => !isAnimating && setIsFlipped(true)}
-                className="mt-5 w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
+                aria-label="Show answer"
+                className="mt-5 w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 btn-scale focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 Show Answer
                 <span className="opacity-60 text-xs font-normal">[Space]</span>

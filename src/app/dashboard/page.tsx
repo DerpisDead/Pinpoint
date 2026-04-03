@@ -242,7 +242,7 @@ export default async function DashboardPage() {
               <p className="text-[11px] text-gray-400 mt-0.5">Level {levelInfo.level}</p>
               <div className="mt-2 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
                 <div
-                  className="h-full rounded-full transition-all duration-500"
+                  className="h-full rounded-full progress-animated"
                   style={{
                     width: `${levelInfo.progress}%`,
                     background: "linear-gradient(90deg, #8B5CF6, #3B82F6)",
@@ -313,7 +313,7 @@ export default async function DashboardPage() {
                 {/* Progress bar */}
                 <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden mb-2">
                   <div
-                    className="h-full rounded-full transition-all duration-500"
+                    className="h-full rounded-full progress-animated"
                     style={{
                       width: `${mastery}%`,
                       backgroundColor: ev.color,

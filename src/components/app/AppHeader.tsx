@@ -36,7 +36,7 @@ export default function AppHeader({ profile }: Props) {
       </div>
 
       {/* User */}
-      <Link href="/dashboard/profile" className="flex items-center gap-2.5 group">
+      <Link href="/dashboard/profile" aria-label="Go to profile" className="flex items-center gap-2.5 group">
         {/* XP badge */}
         <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 text-purple-600 border border-purple-100">
           ⚡ {profile?.total_xp ?? 0} XP
