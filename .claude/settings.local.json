@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest init --defaults)",
+      "Bash(npx shadcn-ui@latest init --defaults)",
+      "Bash(npx shadcn@latest:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm cache:*)",
+      "Bash(python3 -c \"f=open\\('/c/Users/prave/claudeprojects/pinpoint/src/components/app/AppSidebar.tsx'\\); print\\(f.read\\(\\)[:600]\\)\")",
+      "Bash(powershell.exe -Command \"Get-Content 'C:\\\\Users\\\\prave\\\\claudeprojects\\\\pinpoint\\\\src\\\\components\\\\app\\\\AppSidebar.tsx' | Select-Object -First 25\")",
+      "Bash(xargs grep:*)",
+      "Bash(mkdir -p /c/Users/prave/claudeprojects/pinpoint/src/app/dashboard/event/\\\\[eventId\\\\]/cards)",
+      "Bash(mkdir -p /c/Users/prave/claudeprojects/pinpoint/src/app/dashboard/event/\\\\[eventId\\\\]/matching)",
+      "Bash(mkdir -p /c/Users/prave/claudeprojects/pinpoint/src/app/dashboard/event/\\\\[eventId\\\\]/type-answer)",
+      "Bash(git add:*)"
+    ]
+  }
+}
