@@ -15,7 +15,14 @@
       "Bash(mkdir -p /c/Users/prave/claudeprojects/pinpoint/src/app/dashboard/event/\\\\[eventId\\\\]/cards)",
       "Bash(mkdir -p /c/Users/prave/claudeprojects/pinpoint/src/app/dashboard/event/\\\\[eventId\\\\]/matching)",
       "Bash(mkdir -p /c/Users/prave/claudeprojects/pinpoint/src/app/dashboard/event/\\\\[eventId\\\\]/type-answer)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(ls /c/Users/prave/Downloads/*.png /c/Users/prave/Desktop/*.png /c/Users/prave/Pictures/*.png)",
+      "Bash(ls /c/Users/prave/Downloads/*.png)",
+      "Bash(taskkill //PID 30840 //F)"
     ]
   }
 }

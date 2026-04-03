@@ -7,18 +7,46 @@ import type { BrowsableCard } from "@/app/dashboard/event/[eventId]/cards/page";
 
 type Filter = "all" | "due" | "new" | "learning" | "mastered";
 
-function getStatus(card: BrowsableCard, now: string): Filter {
+function getStatus(card: BrowsableCard, now: string): "new" | "learning" | "reviewing" | "mastered" {
   if (card.repetitions === 0) return "new";
   if (card.repetitions <= 1) return "learning";
   if (card.intervalDays >= 21) return "mastered";
-  if (card.nextReview && card.nextReview <= now) return "due";
-  return "learning";
+  return "reviewing";
 }
+
+function isDue(card: BrowsableCard, now: string) {
+  return card.nextReview !== null && card.nextReview <= now && card.repetitions > 0;
+}
+
+const STATUS_DOT: Record<string, string> = {
+  new:       "bg-red-400",
+  learning:  "bg-yellow-400",
+  reviewing: "bg-blue-400",
+  mastered:  "bg-green-500",
+};
+
+const STATUS_BADGE: Record<string, string> = {
+  new:       "bg-red-50 text-red-600",
+  learning:  "bg-yellow-50 text-yellow-700",
+  reviewing: "bg-blue-50 text-blue-600",
+  mastered:  "bg-green-50 text-green-700",
+};
 
 function getDifficultyColor(d: "easy" | "medium" | "hard") {
   if (d === "easy") return "bg-green-100 text-green-700";
   if (d === "medium") return "bg-yellow-100 text-yellow-700";
   return "bg-red-100 text-red-700";
+}
+
+function formatNextReview(nextReview: string | null, now: string): string {
+  if (!nextReview) return "Not started";
+  if (nextReview <= now) return "Due now";
+  const diffMs = new Date(nextReview).getTime() - new Date(now).getTime();
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 1) return "Due tomorrow";
+  if (diffDays < 30) return `Due in ${diffDays}d`;
+  const diffMonths = Math.floor(diffDays / 30);
+  return `Due in ${diffMonths}mo`;
 }
 
 type Props = {
@@ -43,22 +71,27 @@ export default function CardBrowserClient({
   const [selected, setSelected] = useState<BrowsableCard | null>(null);
 
   const filters: { key: Filter; label: string }[] = [
-    { key: "all", label: "All" },
-    { key: "due", label: "Due" },
-    { key: "new", label: "New" },
+    { key: "all",      label: "All" },
+    { key: "due",      label: "Due Now" },
+    { key: "new",      label: "New" },
     { key: "learning", label: "Learning" },
     { key: "mastered", label: "Mastered" },
   ];
+
+  const filterCount = (key: Filter) => {
+    if (key === "all") return cards.length;
+    if (key === "due") return cards.filter((c) => isDue(c, now)).length;
+    return cards.filter((c) => getStatus(c, now) === key).length;
+  };
 
   const filtered = cards.filter((c) => {
     const matchesSearch =
       search === "" ||
       c.front.toLowerCase().includes(search.toLowerCase()) ||
       c.back.toLowerCase().includes(search.toLowerCase());
-
     if (!matchesSearch) return false;
     if (filter === "all") return true;
-    if (filter === "due") return c.nextReview !== null && c.nextReview <= now;
+    if (filter === "due") return isDue(c, now);
     return getStatus(c, now) === filter;
   });
 
@@ -75,17 +108,15 @@ export default function CardBrowserClient({
         </Link>
         <div className="flex items-center gap-3">
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
             style={{ background: eventColor + "20", border: `1.5px solid ${eventColor}40` }}
           >
             {eventIcon}
           </div>
-          <h1 className="text-xl font-bold text-gray-900">
-            Browse Cards
-            <span className="ml-2 text-sm font-normal text-gray-400">
-              {cards.length} total
-            </span>
-          </h1>
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">Browse Cards</h1>
+            <p className="text-xs text-gray-400">{cards.length} total</p>
+          </div>
         </div>
       </div>
 
@@ -101,28 +132,25 @@ export default function CardBrowserClient({
         />
       </div>
 
-      {/* Filter pills */}
+      {/* Filter tabs */}
       <div className="flex gap-2 flex-wrap">
         {filters.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors flex items-center gap-1.5 ${
               filter === key
                 ? "bg-blue-600 text-white"
                 : "bg-white border border-gray-200 text-gray-500 hover:border-blue-300 hover:text-blue-600"
             }`}
           >
-            {label}
-            {key !== "all" && (
-              <span className="ml-1 opacity-60">
-                {cards.filter((c) =>
-                  key === "due"
-                    ? c.nextReview !== null && c.nextReview <= now
-                    : getStatus(c, now) === key
-                ).length}
-              </span>
+            {key !== "all" && key !== "due" && (
+              <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT[key]}`} />
             )}
+            {label}
+            <span className={filter === key ? "opacity-70" : "opacity-50"}>
+              {filterCount(key)}
+            </span>
           </button>
         ))}
       </div>
@@ -134,49 +162,51 @@ export default function CardBrowserClient({
         ) : (
           filtered.map((card) => {
             const status = getStatus(card, now);
-            const isDue = card.nextReview !== null && card.nextReview <= now;
+            const due = isDue(card, now);
+            const nextReviewLabel = formatNextReview(card.nextReview, now);
+
             return (
               <button
                 key={card.id}
                 onClick={() => setSelected(card)}
                 className="w-full text-left bg-white rounded-2xl border border-gray-100 p-4 hover:border-blue-200 hover:shadow-sm transition-all"
               >
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  {/* Color dot */}
+                  <div className="mt-1.5 shrink-0">
+                    <div className={`w-2 h-2 rounded-full ${STATUS_DOT[status]}`} />
+                  </div>
+
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 truncate">{card.front}</p>
                     <p className="text-xs text-gray-400 mt-0.5 truncate">{card.back}</p>
-                  </div>
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    {isDue && card.repetitions > 0 && (
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-600">
-                        Due
+
+                    <div className="flex items-center gap-2 mt-2 flex-wrap">
+                      {/* Status badge */}
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${STATUS_BADGE[status]}`}>
+                        {status}
                       </span>
-                    )}
-                    <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${
-                        status === "new"
-                          ? "bg-gray-100 text-gray-500"
-                          : status === "learning"
-                          ? "bg-blue-100 text-blue-600"
-                          : status === "mastered"
-                          ? "bg-green-100 text-green-600"
-                          : "bg-yellow-100 text-yellow-600"
-                      }`}
-                    >
-                      {status}
-                    </span>
-                    <span
-                      className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${getDifficultyColor(
-                        card.difficulty
-                      )}`}
-                    >
-                      {card.difficulty}
-                    </span>
+
+                      {/* Due badge */}
+                      {due && (
+                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-600">
+                          Due now
+                        </span>
+                      )}
+
+                      {/* Difficulty */}
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${getDifficultyColor(card.difficulty)}`}>
+                        {card.difficulty}
+                      </span>
+
+                      {/* Next review */}
+                      <span className="text-xs text-gray-400">{nextReviewLabel}</span>
+
+                      {card.timesReviewed > 0 && (
+                        <span className="text-xs text-gray-400">· {card.timesReviewed}× reviewed</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
-                  <span>Reviewed {card.timesReviewed}×</span>
-                  {card.intervalDays > 0 && <span>Interval {card.intervalDays}d</span>}
                 </div>
               </button>
             );
@@ -201,21 +231,21 @@ export default function CardBrowserClient({
               <X size={18} />
             </button>
 
-            <div className="flex items-center gap-2 mb-4">
-              <span
-                className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${getDifficultyColor(
-                  selected.difficulty
-                )}`}
-              >
+            <div className="flex items-center gap-2 mb-5 flex-wrap">
+              <div className={`w-2.5 h-2.5 rounded-full ${STATUS_DOT[getStatus(selected, now)]}`} />
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${STATUS_BADGE[getStatus(selected, now)]}`}>
+                {getStatus(selected, now)}
+              </span>
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full capitalize ${getDifficultyColor(selected.difficulty)}`}>
                 {selected.difficulty}
               </span>
               <span className="text-xs text-gray-400">
-                Reviewed {selected.timesReviewed}×
+                {formatNextReview(selected.nextReview, now)}
               </span>
             </div>
 
-            <div className="mb-4">
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            <div className="mb-5">
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
                 Front
               </div>
               <div className="text-base font-medium text-gray-900 leading-relaxed">
@@ -223,14 +253,21 @@ export default function CardBrowserClient({
               </div>
             </div>
 
-            <div className="border-t border-gray-100 pt-4">
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            <div className="border-t border-gray-100 pt-5">
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
                 Back
               </div>
               <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
                 {selected.back}
               </div>
             </div>
+
+            {selected.timesReviewed > 0 && (
+              <div className="mt-4 pt-4 border-t border-gray-100 flex gap-4 text-xs text-gray-400">
+                <span>Reviewed {selected.timesReviewed}×</span>
+                {selected.intervalDays > 0 && <span>Interval {selected.intervalDays}d</span>}
+              </div>
+            )}
           </div>
         </div>
       )}

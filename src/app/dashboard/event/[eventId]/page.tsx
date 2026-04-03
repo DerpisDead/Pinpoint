@@ -19,6 +19,15 @@ function getMasteryBucket(repetitions: number, intervalDays: number): MasteryBuc
   return "mastered";
 }
 
+// Convert hex color to rgba string
+function hexToRgba(hex: string, alpha: number) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
 export default async function EventDetailPage({
   params,
 }: {
@@ -45,14 +54,12 @@ export default async function EventDetailPage({
   if (!event) notFound();
   if (!userEventRow) redirect("/dashboard");
 
-  // Fetch all user_cards for this event
   const { data: cardRows } = await supabase
     .from("cards")
     .select("id")
     .eq("event_id", eventId);
 
   const cardIds = (cardRows ?? []).map((r: { id: string }) => r.id);
-
   const now = new Date().toISOString();
 
   const [{ data: userCards }, { count: dueCount }] = await Promise.all([
@@ -81,7 +88,6 @@ export default async function EventDetailPage({
     easeSum += uc.ease_factor;
   }
 
-  // Cards never touched are "new" even if not in user_cards yet
   const untouched = totalCards - userCardList.length;
   buckets.new += untouched;
 
@@ -89,37 +95,52 @@ export default async function EventDetailPage({
   const masteredPct =
     totalCards > 0 ? Math.round((buckets.mastered / totalCards) * 100) : 0;
 
+  // Use event color at different opacities for buckets
+  const color = event.color ?? "#6366f1";
   const BUCKET_CONFIG = [
-    { key: "new" as const, label: "New", color: "bg-gray-300" },
-    { key: "learning" as const, label: "Learning", color: "bg-blue-400" },
-    { key: "reviewing" as const, label: "Reviewing", color: "bg-yellow-400" },
-    { key: "mastered" as const, label: "Mastered", color: "bg-green-500" },
+    { key: "new" as const,      label: "New",       alpha: 0.15 },
+    { key: "learning" as const, label: "Learning",   alpha: 0.40 },
+    { key: "reviewing" as const,label: "Reviewing",  alpha: 0.70 },
+    { key: "mastered" as const, label: "Mastered",   alpha: 1.00 },
   ];
 
   return (
     <div className="space-y-6 max-w-2xl">
-      {/* Back + header */}
-      <div>
-        <Link
-          href="/dashboard"
-          className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600 mb-3 transition-colors"
+      {/* Back */}
+      <Link
+        href="/dashboard"
+        className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+      >
+        <ChevronLeft size={15} />
+        Dashboard
+      </Link>
+
+      {/* Event header */}
+      <div
+        className="rounded-3xl p-5 flex items-start gap-4"
+        style={{ background: hexToRgba(color, 0.08), border: `1.5px solid ${hexToRgba(color, 0.2)}` }}
+      >
+        <div
+          className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shrink-0 shadow-sm"
+          style={{ background: hexToRgba(color, 0.15) }}
         >
-          <ChevronLeft size={15} />
-          Dashboard
-        </Link>
-        <div className="flex items-center gap-3">
-          <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm"
-            style={{ background: event.color + "20", border: `1.5px solid ${event.color}40` }}
-          >
-            {event.icon}
-          </div>
-          <div>
+          {event.icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
               {event.name}
             </h1>
-            <p className="text-sm text-gray-500">{event.category}</p>
+            <span
+              className="text-xs font-semibold px-2.5 py-1 rounded-full"
+              style={{ background: hexToRgba(color, 0.15), color }}
+            >
+              {event.category}
+            </span>
           </div>
+          {event.description && (
+            <p className="text-sm text-gray-500 mt-1 leading-relaxed">{event.description}</p>
+          )}
         </div>
       </div>
 
@@ -127,9 +148,9 @@ export default async function EventDetailPage({
       <div className="grid grid-cols-4 gap-3">
         {[
           { label: "Total Cards", value: totalCards },
-          { label: "Mastery", value: `${masteredPct}%` },
-          { label: "Due Now", value: dueCount ?? 0 },
-          { label: "Avg Ease", value: avgEase.toFixed(2) },
+          { label: "Mastery",     value: `${masteredPct}%` },
+          { label: "Due Now",     value: dueCount ?? 0 },
+          { label: "Avg Ease",    value: avgEase.toFixed(2) },
         ].map(({ label, value }) => (
           <div
             key={label}
@@ -144,25 +165,30 @@ export default async function EventDetailPage({
       {/* Mastery breakdown */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
         <h2 className="text-sm font-semibold text-gray-700 mb-4">Mastery Breakdown</h2>
-        {/* Bar chart */}
-        <div className="flex h-4 rounded-full overflow-hidden gap-0.5 mb-4">
-          {BUCKET_CONFIG.map(({ key, color }) => {
+
+        {/* Stacked bar */}
+        <div className="flex h-4 rounded-full overflow-hidden gap-px mb-4">
+          {BUCKET_CONFIG.map(({ key, alpha }) => {
             const pct = totalCards > 0 ? (buckets[key] / totalCards) * 100 : 0;
             if (pct === 0) return null;
             return (
               <div
                 key={key}
-                className={`${color} transition-all`}
-                style={{ width: `${pct}%` }}
+                className="transition-all"
+                style={{ width: `${pct}%`, background: hexToRgba(color, alpha) }}
               />
             );
           })}
         </div>
+
         {/* Legend */}
-        <div className="flex flex-wrap gap-x-4 gap-y-1">
-          {BUCKET_CONFIG.map(({ key, label, color }) => (
+        <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+          {BUCKET_CONFIG.map(({ key, label, alpha }) => (
             <div key={key} className="flex items-center gap-1.5">
-              <div className={`w-2.5 h-2.5 rounded-sm ${color}`} />
+              <div
+                className="w-2.5 h-2.5 rounded-sm"
+                style={{ background: hexToRgba(color, alpha) }}
+              />
               <span className="text-xs text-gray-500">
                 {label}{" "}
                 <span className="font-semibold text-gray-700">{buckets[key]}</span>
@@ -174,83 +200,82 @@ export default async function EventDetailPage({
 
       {/* Action buttons */}
       <div className="grid grid-cols-2 gap-3">
-        <Link
-          href={`/dashboard/event/${eventId}/study`}
-          className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all shadow-sm group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-            <BookOpen size={18} className="text-blue-600" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Study Due</div>
-            <div className="text-xs text-gray-400">{dueCount ?? 0} cards ready</div>
-          </div>
-        </Link>
-
-        <Link
-          href={`/dashboard/event/${eventId}/study?mode=all`}
-          className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 hover:border-purple-200 hover:bg-purple-50 transition-all shadow-sm group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-            <Layers size={18} className="text-purple-600" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Study All</div>
-            <div className="text-xs text-gray-400">{totalCards} cards total</div>
-          </div>
-        </Link>
-
-        <Link
-          href={`/dashboard/practice-test?eventId=${eventId}`}
-          className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 hover:border-green-200 hover:bg-green-50 transition-all shadow-sm group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
-            <ClipboardCheck size={18} className="text-green-600" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Practice Test</div>
-            <div className="text-xs text-gray-400">Multiple choice</div>
-          </div>
-        </Link>
-
-        <Link
-          href={`/dashboard/event/${eventId}/cards`}
-          className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50 transition-all shadow-sm group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-orange-100 flex items-center justify-center group-hover:bg-orange-200 transition-colors">
-            <Layers size={18} className="text-orange-600" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Browse Cards</div>
-            <div className="text-xs text-gray-400">Search & filter</div>
-          </div>
-        </Link>
-
-        <Link
-          href={`/dashboard/event/${eventId}/matching`}
-          className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 hover:border-pink-200 hover:bg-pink-50 transition-all shadow-sm group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-pink-100 flex items-center justify-center group-hover:bg-pink-200 transition-colors">
-            <Puzzle size={18} className="text-pink-600" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Matching</div>
-            <div className="text-xs text-gray-400">Match terms +30 XP</div>
-          </div>
-        </Link>
-
-        <Link
-          href={`/dashboard/event/${eventId}/type-answer`}
-          className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 hover:border-teal-200 hover:bg-teal-50 transition-all shadow-sm group"
-        >
-          <div className="w-9 h-9 rounded-xl bg-teal-100 flex items-center justify-center group-hover:bg-teal-200 transition-colors">
-            <Keyboard size={18} className="text-teal-600" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900">Type Answer</div>
-            <div className="text-xs text-gray-400">XP per correct card</div>
-          </div>
-        </Link>
+        {[
+          {
+            href: `/dashboard/event/${eventId}/study`,
+            icon: BookOpen,
+            label: "Study Due Cards",
+            sub: `${dueCount ?? 0} cards ready`,
+            hoverBg: "hover:bg-blue-50",
+            hoverBorder: "hover:border-blue-200",
+            iconBg: "bg-blue-100 group-hover:bg-blue-200",
+            iconColor: "text-blue-600",
+          },
+          {
+            href: `/dashboard/event/${eventId}/study?mode=all`,
+            icon: Layers,
+            label: "Study All Cards",
+            sub: `${totalCards} cards total`,
+            hoverBg: "hover:bg-purple-50",
+            hoverBorder: "hover:border-purple-200",
+            iconBg: "bg-purple-100 group-hover:bg-purple-200",
+            iconColor: "text-purple-600",
+          },
+          {
+            href: `/dashboard/practice-test?eventId=${eventId}`,
+            icon: ClipboardCheck,
+            label: "Practice Test",
+            sub: "Multiple choice",
+            hoverBg: "hover:bg-green-50",
+            hoverBorder: "hover:border-green-200",
+            iconBg: "bg-green-100 group-hover:bg-green-200",
+            iconColor: "text-green-600",
+          },
+          {
+            href: `/dashboard/event/${eventId}/cards`,
+            icon: Layers,
+            label: "Browse Cards",
+            sub: "Search & filter",
+            hoverBg: "hover:bg-orange-50",
+            hoverBorder: "hover:border-orange-200",
+            iconBg: "bg-orange-100 group-hover:bg-orange-200",
+            iconColor: "text-orange-600",
+          },
+          {
+            href: `/dashboard/event/${eventId}/matching`,
+            icon: Puzzle,
+            label: "Matching",
+            sub: "Match terms · +30 XP",
+            hoverBg: "hover:bg-pink-50",
+            hoverBorder: "hover:border-pink-200",
+            iconBg: "bg-pink-100 group-hover:bg-pink-200",
+            iconColor: "text-pink-600",
+          },
+          {
+            href: `/dashboard/event/${eventId}/type-answer`,
+            icon: Keyboard,
+            label: "Type Answer",
+            sub: "XP per correct card",
+            hoverBg: "hover:bg-teal-50",
+            hoverBorder: "hover:border-teal-200",
+            iconBg: "bg-teal-100 group-hover:bg-teal-200",
+            iconColor: "text-teal-600",
+          },
+        ].map(({ href, icon: Icon, label, sub, hoverBg, hoverBorder, iconBg, iconColor }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`flex items-center gap-3 p-4 bg-white rounded-2xl border border-gray-100 ${hoverBorder} ${hoverBg} transition-all shadow-sm group`}
+          >
+            <div className={`w-9 h-9 rounded-xl ${iconBg} flex items-center justify-center transition-colors shrink-0`}>
+              <Icon size={18} className={iconColor} />
+            </div>
+            <div className="min-w-0">
+              <div className="text-sm font-semibold text-gray-900">{label}</div>
+              <div className="text-xs text-gray-400">{sub}</div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
