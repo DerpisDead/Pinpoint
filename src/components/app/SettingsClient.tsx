@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useTransition, useCallback } from "react";
-import { Check, Loader2, Camera, AlertTriangle, X } from "lucide-react";
+import { useState, useRef, useTransition, useCallback, useMemo } from "react";
+import { Check, Loader2, Camera, AlertTriangle, X, Search } from "lucide-react";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase";
 import { Switch } from "@/components/ui/switch";
@@ -140,6 +140,8 @@ export default function SettingsClient({
   const [selectedEventIds, setSelectedEventIds] = useState(new Set(currentEventIds));
   const [savingEvents, setSavingEvents]   = useState(false);
   const [savedEvents, setSavedEvents]     = useState(false);
+  const [eventSearch, setEventSearch]     = useState("");
+  const [eventCategory, setEventCategory] = useState("All");
 
   // ── Danger zone state ────────────────────────────────────────────────────
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -266,12 +268,43 @@ export default function SettingsClient({
     });
   }
 
-  // Group events by category
-  const byCategory = allEvents.reduce<Record<string, Event[]>>((acc, ev) => {
-    if (!acc[ev.category]) acc[ev.category] = [];
-    acc[ev.category].push(ev);
-    return acc;
-  }, {});
+  // Events filter + grouping
+  const EVENT_CATEGORIES = ["All", "Health Science", "Health Professions", "Emergency Preparedness", "Leadership", "Teamwork"] as const;
+  const CATEGORY_COLORS: Record<string, string> = {
+    "Health Science": "#3B82F6",
+    "Health Professions": "#8B5CF6",
+    "Emergency Preparedness": "#F59E0B",
+    "Leadership": "#10B981",
+    "Teamwork": "#EC4899",
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const filteredEvents = useMemo(() => {
+    const q = eventSearch.trim().toLowerCase();
+    return allEvents.filter((ev) => {
+      const matchesCat = eventCategory === "All" || ev.category === eventCategory;
+      if (!matchesCat) return false;
+      if (!q) return true;
+      return (
+        ev.name.toLowerCase().includes(q) ||
+        ev.category.toLowerCase().includes(q) ||
+        (ev.description ?? "").toLowerCase().includes(q)
+      );
+    });
+  }, [allEvents, eventSearch, eventCategory]);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const byCategory = useMemo(() => {
+    const map: Record<string, Event[]> = {};
+    for (const ev of filteredEvents) {
+      if (!map[ev.category]) map[ev.category] = [];
+      map[ev.category].push(ev);
+    }
+    for (const cat of Object.keys(map)) {
+      map[cat].sort((a, b) => a.name.localeCompare(b.name));
+    }
+    return map;
+  }, [filteredEvents]);
 
   // ─────────────────────────────────────────────────────────────────────────
 
@@ -380,12 +413,51 @@ export default function SettingsClient({
 
       {/* ── Manage Events ── */}
       <Section title="Manage Events" description="Add or remove HOSA events from your study list.">
-        <div className="space-y-6 max-h-[480px] overflow-y-auto pr-1">
-          {Object.entries(byCategory).map(([cat, events]) => (
+        {/* Search */}
+        <div className="relative">
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <input
+            type="text"
+            value={eventSearch}
+            onChange={(e) => setEventSearch(e.target.value)}
+            placeholder="Search events…"
+            className="w-full pl-8 pr-4 py-2 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent transition-all"
+          />
+        </div>
+
+        {/* Category tabs */}
+        <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
+          {EVENT_CATEGORIES.map((cat) => {
+            const isActive = eventCategory === cat;
+            const color = cat === "All" ? "#3B82F6" : CATEGORY_COLORS[cat];
+            return (
+              <button
+                key={cat}
+                onClick={() => setEventCategory(cat)}
+                className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-medium transition-all border ${
+                  isActive
+                    ? "border-transparent text-white"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                }`}
+                style={isActive ? { backgroundColor: color } : {}}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="space-y-5 max-h-[420px] overflow-y-auto pr-1">
+          {EVENT_CATEGORIES.filter((c) => c !== "All" && byCategory[c]).map((cat) => (
             <div key={cat}>
-              <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-2">{cat}</h3>
+              <h3
+                className="text-[11px] font-semibold uppercase tracking-widest mb-2"
+                style={{ color: CATEGORY_COLORS[cat] }}
+              >
+                {cat}
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {events.map((ev) => {
+                {byCategory[cat].map((ev) => {
                   const isSelected = selectedEventIds.has(ev.id);
                   return (
                     <button
@@ -420,6 +492,9 @@ export default function SettingsClient({
               </div>
             </div>
           ))}
+          {EVENT_CATEGORIES.filter((c) => c !== "All" && byCategory[c]).length === 0 && (
+            <p className="py-6 text-center text-sm text-gray-400">No events match your search.</p>
+          )}
         </div>
 
         <div className="flex items-center justify-between pt-1">
