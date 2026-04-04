@@ -96,7 +96,39 @@ export type XpLog = {
   id: string;
   user_id: string;
   amount: number;
-  source: "card_review" | "test_complete" | "streak_bonus" | "badge_earned";
+  source: "card_review" | "test_complete" | "streak_bonus" | "badge_earned" | "guide_upload";
   details: Record<string, unknown> | null;
+  created_at: string;
+};
+
+export type StudyGuide = {
+  id: string;
+  user_id: string;
+  event_id: string;
+  title: string;
+  description: string | null;
+  file_url: string;
+  file_path: string;
+  file_name: string;
+  file_size_bytes: number;
+  file_type: "pdf" | "docx" | "pptx" | "xlsx" | "png" | "jpg" | "txt" | "md";
+  download_count: number;
+  upvote_count: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StudyGuideUpvote = {
+  id: string;
+  user_id: string;
+  guide_id: string;
+  created_at: string;
+};
+
+export type StudyGuideComment = {
+  id: string;
+  user_id: string;
+  guide_id: string;
+  content: string;
   created_at: string;
 };

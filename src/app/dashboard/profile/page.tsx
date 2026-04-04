@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, ClipboardCheck, Flame, Target, Users, Award } from "lucide-react";
+import { BookOpen, ClipboardCheck, Flame, Target, Users, Award, FileText, FileSpreadsheet, Image, File, Download, ThumbsUp, MessageCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase-server";
 import { calcCardXp, calcTestXp } from "@/lib/xp-rules";
 import { timeAgo } from "@/lib/time";
@@ -22,6 +22,7 @@ type ReviewRow  = { quality: number; reviewed_at: string; cards: { front: string
 type TestRow    = { score: number; total_questions: number; completed_at: string; events: { name: string; color: string } | null };
 type BadgeRow   = { id: string; name: string; icon: string | null };
 type EarnedRow  = { badge_id: string; earned_at: string };
+type UploadRow  = { id: string; title: string; file_type: string; file_url: string; upvote_count: number; download_count: number; created_at: string; events: { name: string; color: string } | null; study_guide_comments: { count: number }[] };
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -48,6 +49,7 @@ export default async function ProfilePage() {
     { data: allBadges },
     { data: recentReviewsRaw },
     { data: recentTestsRaw },
+    { data: myUploadsRaw },
   ] = await Promise.all([
     supabase.from("profiles").select("*").eq("id", user.id).single(),
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("user_id", user.id),
@@ -61,6 +63,7 @@ export default async function ProfilePage() {
     supabase.from("badges").select("id, name, icon"),
     supabase.from("reviews").select("quality, reviewed_at, cards(front, events(name, color))").eq("user_id", user.id).order("reviewed_at", { ascending: false }).limit(10),
     supabase.from("practice_tests").select("score, total_questions, completed_at, events(name, color)").eq("user_id", user.id).order("completed_at", { ascending: false }).limit(10),
+    supabase.from("study_guides").select("id, title, file_type, file_url, upvote_count, download_count, created_at, events(name, color), study_guide_comments(count)").eq("user_id", user.id).order("created_at", { ascending: false }),
   ]);
 
   if (!profile) redirect("/login");
@@ -96,6 +99,7 @@ export default async function ProfilePage() {
 
   const recentReviews = (recentReviewsRaw ?? []) as unknown as ReviewRow[];
   const recentTests   = (recentTestsRaw  ?? []) as unknown as TestRow[];
+  const myUploads     = (myUploadsRaw    ?? []) as unknown as UploadRow[];
 
   const activity: ActivityItem[] = [
     ...recentReviews.map((r) => ({
@@ -213,8 +217,67 @@ export default async function ProfilePage() {
           </div>
         </section>
       )}
+
+      {/* ── My Uploads ── */}
+      {myUploads.length > 0 && (
+        <section>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold text-gray-900">My Study Guides</h2>
+            <Link href="/dashboard/community/upload" className="text-xs text-blue-500 hover:text-blue-700 font-medium transition-colors">
+              Upload New →
+            </Link>
+          </div>
+          <div className="space-y-2">
+            {myUploads.map((guide) => {
+              const commentCount = guide.study_guide_comments?.[0]?.count ?? 0;
+              return (
+                <div key={guide.id} className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
+                    <UploadFileIcon type={guide.file_type} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-800 truncate">{guide.title}</p>
+                    {guide.events && (
+                      <span
+                        className="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded-full mt-0.5"
+                        style={{ backgroundColor: `${guide.events.color}18`, color: guide.events.color }}
+                      >
+                        {guide.events.name}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0 text-xs text-gray-400">
+                    <span className="flex items-center gap-1">
+                      <ThumbsUp size={11} /> {guide.upvote_count}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Download size={11} /> {guide.download_count}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MessageCircle size={11} /> {commentCount}
+                    </span>
+                    <span className="text-gray-300">·</span>
+                    <span>{timeAgo(guide.created_at)}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
+}
+
+// ─── UploadFileIcon ───────────────────────────────────────────────────────────
+
+function UploadFileIcon({ type }: { type: string }) {
+  if (type === "pdf") return <FileText size={16} className="text-red-500" />;
+  if (type === "docx") return <FileText size={16} className="text-blue-500" />;
+  if (type === "pptx") return <FileText size={16} className="text-orange-500" />;
+  if (type === "xlsx") return <FileSpreadsheet size={16} className="text-green-600" />;
+  if (type === "png" || type === "jpg") return <Image size={16} className="text-purple-500" />;
+  return <File size={16} className="text-gray-400" />;
 }
 
 // ─── StatCard ─────────────────────────────────────────────────────────────────

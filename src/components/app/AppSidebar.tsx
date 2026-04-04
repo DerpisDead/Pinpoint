@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, BookOpen, ClipboardCheck, Trophy, Award, User, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, BookOpen, ClipboardCheck, Trophy, Award, User, Settings, LogOut, Users } from "lucide-react";
 import { createClient } from "@/lib/supabase";
 
 const NAV_ITEMS = [
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/dashboard/practice-test", icon: ClipboardCheck,  label: "Tests"       },
   { href: "/dashboard/leaderboard",   icon: Trophy,          label: "Leaderboard" },
   { href: "/dashboard/badges",        icon: Award,           label: "Badges"      },
+  { href: "/dashboard/community",     icon: Users,           label: "Community"   },
   { href: "/dashboard/profile",       icon: User,            label: "Profile"     },
   { href: "/dashboard/settings",      icon: Settings,        label: "Settings"    },
 ];

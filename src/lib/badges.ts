@@ -24,6 +24,7 @@ export type UserStats = {
   hasPerfectTest: boolean;
   maxEventMasteryPct: number;
   eventsAt90PctCount: number;
+  guideCount: number;
 };
 
 export async function gatherStats(
@@ -36,12 +37,14 @@ export async function gatherStats(
     { data: perfectTests },
     { data: userCards },
     { data: userEventRows },
+    { count: guideCount },
   ] = await Promise.all([
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("user_id", userId),
     supabase.from("profiles").select("current_streak, total_xp").eq("id", userId).single(),
     supabase.from("practice_tests").select("score, total_questions").eq("user_id", userId),
     supabase.from("user_cards").select("ease_factor, cards(event_id)").eq("user_id", userId),
     supabase.from("user_events").select("event_id").eq("user_id", userId),
+    supabase.from("study_guides").select("*", { count: "exact", head: true }).eq("user_id", userId),
   ]);
 
   const hasPerfectTest = (perfectTests ?? []).some(
@@ -70,6 +73,7 @@ export async function gatherStats(
     hasPerfectTest,
     maxEventMasteryPct: masteryPcts.length ? Math.max(...masteryPcts) : 0,
     eventsAt90PctCount: masteryPcts.filter((p) => p >= 90).length,
+    guideCount: guideCount ?? 0,
   };
 }
 
@@ -83,6 +87,7 @@ function qualifies(badge: BadgeRow, stats: UserStats): boolean {
       return badge.requirement_value <= 10
         ? stats.eventsAt90PctCount >= badge.requirement_value
         : stats.maxEventMasteryPct >= badge.requirement_value;
+    case "guides": return stats.guideCount >= badge.requirement_value;
     default: return false;
   }
 }
@@ -138,6 +143,7 @@ export function getBadgeProgress(badge: BadgeRow, stats: UserStats): number {
       return badge.requirement_value <= 10
         ? Math.min(100, Math.round((stats.eventsAt90PctCount / badge.requirement_value) * 100))
         : Math.min(100, Math.round((stats.maxEventMasteryPct / badge.requirement_value) * 100));
+    case "guides": return Math.min(100, Math.round((stats.guideCount / badge.requirement_value) * 100));
     default: return 0;
   }
 }
@@ -152,6 +158,7 @@ export function getBadgeProgressLabel(badge: BadgeRow, stats: UserStats): string
       return badge.requirement_value <= 10
         ? `${stats.eventsAt90PctCount} / ${badge.requirement_value} events mastered`
         : `${Math.round(stats.maxEventMasteryPct)}% / ${badge.requirement_value}% max mastery`;
+    case "guides": return `${Math.min(stats.guideCount, badge.requirement_value)} / ${badge.requirement_value} guides uploaded`;
     default: return "";
   }
 }
