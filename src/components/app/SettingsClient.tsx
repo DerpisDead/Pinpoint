@@ -96,7 +96,7 @@ function SaveButton({ onClick, saving, saved }: {
       <button
         onClick={onClick}
         disabled={saving}
-        className="flex items-center gap-2 px-5 py-2 rounded-full gradient-btn text-white text-sm font-semibold shadow-md shadow-blue-500/20 disabled:opacity-60 transition-all"
+        className="flex items-center gap-2 px-5 py-2 rounded-full gradient-btn text-white text-sm font-semibold shadow-md shadow-[#8B1A2D]/20 disabled:opacity-60 transition-all"
       >
         {saving ? (
           <><Loader2 size={14} className="animate-spin" /> Saving…</>
@@ -388,7 +388,7 @@ export default function SettingsClient({
                 onClick={() => setSessionSize(n)}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
                   sessionSize === n
-                    ? "border-blue-500 bg-blue-50 text-blue-600"
+                    ? "border-[#1C3F6E] bg-[#EFF3F9] text-[#1C3F6E]"
                     : "border-gray-200 text-gray-600 hover:border-gray-300"
                 }`}
               >
@@ -470,20 +470,20 @@ export default function SettingsClient({
                       })}
                       className={`relative text-left rounded-xl border-2 p-3 transition-all ${
                         isSelected
-                          ? "border-blue-500 bg-blue-50"
+                          ? "border-[#1C3F6E] bg-[#EFF3F9]"
                           : "border-gray-200 bg-white hover:border-gray-300"
                       }`}
                     >
                       <div className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full ml-3" style={{ backgroundColor: ev.color }} />
                       {isSelected && (
-                        <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                        <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-[#1C3F6E] flex items-center justify-center">
                           <Check size={11} className="text-white" strokeWidth={3} />
                         </div>
                       )}
                       <div className="pl-4 pr-6">
                         <div className="flex items-center gap-1.5">
-                          <DynamicIcon name={ev.icon} size={13} className={isSelected ? "text-blue-600" : "text-gray-400"} />
-                          <span className={`text-sm font-medium truncate ${isSelected ? "text-blue-700" : "text-gray-800"}`}>{ev.name}</span>
+                          <DynamicIcon name={ev.icon} size={13} className={isSelected ? "text-[#1C3F6E]" : "text-gray-400"} />
+                          <span className={`text-sm font-medium truncate ${isSelected ? "text-[#1C3F6E]" : "text-gray-800"}`}>{ev.name}</span>
                         </div>
                       </div>
                     </button>

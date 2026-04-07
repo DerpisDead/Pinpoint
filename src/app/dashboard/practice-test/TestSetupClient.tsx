@@ -42,7 +42,7 @@ export default function TestSetupClient({ events }: Props) {
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 mb-1">
-          <ClipboardCheck size={20} className="text-purple-500" />
+          <ClipboardCheck size={20} className="text-[#8B1A2D]" />
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
             Practice Test
           </h1>
@@ -73,7 +73,7 @@ export default function TestSetupClient({ events }: Props) {
                       onClick={() => setSelectedEventId(ev.id)}
                       className={`relative text-left rounded-xl border-2 px-4 py-3 transition-all duration-150 ${
                         isSelected
-                          ? "border-blue-500 bg-blue-50"
+                          ? "border-[#1C3F6E] bg-[#EFF3F9]"
                           : "border-gray-200 bg-white hover:border-gray-300"
                       }`}
                     >
@@ -87,18 +87,18 @@ export default function TestSetupClient({ events }: Props) {
                           <DynamicIcon
                             name={ev.icon}
                             size={15}
-                            className={isSelected ? "text-blue-600" : "text-gray-400"}
+                            className={isSelected ? "text-[#1C3F6E]" : "text-gray-400"}
                           />
                           <span
                             className={`font-semibold text-sm truncate ${
-                              isSelected ? "text-blue-700" : "text-gray-800"
+                              isSelected ? "text-[#1C3F6E]" : "text-gray-800"
                             }`}
                           >
                             {ev.name}
                           </span>
                         </div>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
+                          <div className="w-5 h-5 rounded-full bg-[#1C3F6E] flex items-center justify-center shrink-0">
                             <Check size={11} className="text-white" strokeWidth={3} />
                           </div>
                         )}
@@ -124,7 +124,7 @@ export default function TestSetupClient({ events }: Props) {
               onClick={() => setQuestionCount(n)}
               className={`flex-1 py-2.5 rounded-xl border-2 text-sm font-semibold transition-all duration-150 ${
                 questionCount === n
-                  ? "border-blue-500 bg-blue-50 text-blue-700"
+                  ? "border-[#1C3F6E] bg-[#EFF3F9] text-[#1C3F6E]"
                   : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700"
               }`}
             >
@@ -162,7 +162,7 @@ export default function TestSetupClient({ events }: Props) {
       <button
         onClick={handleStart}
         disabled={!canStart}
-        className="w-full py-3.5 rounded-full gradient-btn text-white font-semibold text-base shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transition-all"
+        className="w-full py-3.5 rounded-full gradient-btn text-white font-semibold text-base shadow-lg shadow-[#8B1A2D]/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transition-all"
       >
         Start Test →
       </button>

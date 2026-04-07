@@ -112,7 +112,7 @@ export default async function BadgesPage() {
                     </div>
                     <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-blue-400 transition-all duration-500"
+                        className="h-full rounded-full bg-[#1C3F6E] transition-all duration-500"
                         style={{ width: `${progress}%` }}
                       />
                     </div>

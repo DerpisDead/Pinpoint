@@ -63,7 +63,8 @@ export default function OnboardingClient({ events, userId }: Props) {
       .insert(userEventsRows);
 
     if (ueError) {
-      setError("Failed to save your events. Please try again.");
+      console.error("user_events insert error:", ueError);
+      setError(`Failed to save your events: ${ueError.message} (${ueError.code})`);
       setSubmitting(false);
       return;
     }
@@ -240,7 +241,7 @@ export default function OnboardingClient({ events, userId }: Props) {
                           onClick={() => toggleEvent(event.id)}
                           className={`relative text-left rounded-2xl border-2 p-4 transition-all duration-150 group ${
                             isSelected
-                              ? "border-blue-500 bg-blue-50 shadow-sm shadow-blue-100"
+                              ? "border-[#1C3F6E] bg-[#EFF3F9] shadow-sm shadow-[#1C3F6E]/10"
                               : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
                           }`}
                         >
@@ -252,7 +253,7 @@ export default function OnboardingClient({ events, userId }: Props) {
 
                           {/* Check indicator */}
                           {isSelected && (
-                            <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                            <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#1C3F6E] flex items-center justify-center">
                               <Check size={13} className="text-white" strokeWidth={3} />
                             </div>
                           )}
@@ -263,11 +264,11 @@ export default function OnboardingClient({ events, userId }: Props) {
                               <DynamicIcon
                                 name={event.icon}
                                 size={16}
-                                className={isSelected ? "text-blue-600" : "text-gray-400"}
+                                className={isSelected ? "text-[#1C3F6E]" : "text-gray-400"}
                               />
                               <span
                                 className={`font-semibold text-sm ${
-                                  isSelected ? "text-blue-700" : "text-gray-900"
+                                  isSelected ? "text-[#1C3F6E]" : "text-gray-900"
                                 }`}
                               >
                                 {event.name}
@@ -319,7 +320,7 @@ export default function OnboardingClient({ events, userId }: Props) {
           <button
             onClick={handleSubmit}
             disabled={selected.size === 0 || submitting}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-lg shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-lg shadow-[#8B1A2D]/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             {submitting ? (
               <>

@@ -51,10 +51,10 @@ function formatBytes(b: number) {
 
 function FileIcon({ type, size = 20 }: { type: string; size?: number }) {
   if (type === "pdf") return <FileText size={size} className="text-red-500" />;
-  if (type === "docx") return <FileText size={size} className="text-blue-500" />;
+  if (type === "docx") return <FileText size={size} className="text-[#1C3F6E]" />;
   if (type === "pptx") return <FileText size={size} className="text-orange-500" />;
   if (type === "xlsx") return <FileSpreadsheet size={size} className="text-green-600" />;
-  if (type === "png" || type === "jpg") return <Image size={size} className="text-purple-500" />;
+  if (type === "png" || type === "jpg") return <Image size={size} className="text-[#8B1A2D]" />;
   return <File size={size} className="text-gray-400" />;
 }
 
@@ -471,7 +471,7 @@ export default function CommunityClient({
                   onClick={() => handleUpvote(selected)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
                     upvotedIds.has(selected.id)
-                      ? "bg-blue-50 border-blue-200 text-blue-600"
+                      ? "bg-[#EFF3F9] border-[#C8D8EE] text-[#1C3F6E]"
                       : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
                   }`}
                 >
@@ -625,8 +625,8 @@ function GuideCard({
           onClick={onUpvote}
           className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium transition-colors ${
             isUpvoted
-              ? "text-blue-600 bg-blue-50"
-              : "text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+              ? "text-[#1C3F6E] bg-[#EFF3F9]"
+              : "text-gray-500 hover:text-[#1C3F6E] hover:bg-[#EFF3F9]"
           }`}
         >
           <ThumbsUp size={12} />

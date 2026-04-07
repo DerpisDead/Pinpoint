@@ -20,7 +20,7 @@ export default function CommunityTabs() {
             href={href}
             className={`px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors ${
               active
-                ? "border-blue-500 text-blue-600"
+                ? "border-[#1C3F6E] text-[#1C3F6E]"
                 : "border-transparent text-gray-500 hover:text-gray-800"
             }`}
           >

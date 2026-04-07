@@ -16,54 +16,54 @@ const features = [
     title: "Smart Flashcards",
     description:
       "Our SM-2 spaced repetition algorithm surfaces cards exactly when you need them — so you remember more with less time studying.",
-    gradient: "from-blue-500/20 to-blue-600/10",
-    iconColor: "text-blue-400",
-    iconBg: "bg-blue-500/15",
+    gradient: "from-[#1C3F6E]/15 to-[#1C3F6E]/5",
+    iconColor: "text-[#1C3F6E]",
+    iconBg: "bg-[#1C3F6E]/15",
   },
   {
     icon: ClipboardCheck,
     title: "Practice Tests",
     description:
       "Timed, competition-format tests that mirror real HOSA events. Track your accuracy by topic and identify weak spots fast.",
-    gradient: "from-purple-500/20 to-purple-600/10",
-    iconColor: "text-purple-400",
-    iconBg: "bg-purple-500/15",
+    gradient: "from-[#8B1A2D]/15 to-[#8B1A2D]/5",
+    iconColor: "text-[#8B1A2D]",
+    iconBg: "bg-[#8B1A2D]/15",
   },
   {
     icon: TrendingUp,
     title: "Progress Tracking",
     description:
       "Earn XP, maintain daily streaks, and unlock mastery tiers as you advance. Visual dashboards show exactly where you stand.",
-    gradient: "from-emerald-500/20 to-emerald-600/10",
-    iconColor: "text-emerald-400",
-    iconBg: "bg-emerald-500/15",
+    gradient: "from-[#1C3F6E]/15 to-[#1C3F6E]/5",
+    iconColor: "text-[#1C3F6E]",
+    iconBg: "bg-[#1C3F6E]/15",
   },
   {
     icon: Layers,
     title: "Multiple Study Modes",
     description:
       "Flip cards, multiple choice, type-the-answer, or matching games. Switch modes to keep studying fresh and effective.",
-    gradient: "from-cyan-500/20 to-cyan-600/10",
-    iconColor: "text-cyan-400",
-    iconBg: "bg-cyan-500/15",
+    gradient: "from-[#8B1A2D]/15 to-[#8B1A2D]/5",
+    iconColor: "text-[#8B1A2D]",
+    iconBg: "bg-[#8B1A2D]/15",
   },
   {
     icon: Target,
     title: "Event-Specific Content",
     description:
       "Content organized by HOSA event — Medical Terminology, Health Career Display, Pharmacology, and more. Study exactly what you need.",
-    gradient: "from-orange-500/20 to-orange-600/10",
-    iconColor: "text-orange-400",
-    iconBg: "bg-orange-500/15",
+    gradient: "from-[#1C3F6E]/15 to-[#1C3F6E]/5",
+    iconColor: "text-[#1C3F6E]",
+    iconBg: "bg-[#1C3F6E]/15",
   },
   {
     icon: Trophy,
     title: "Compete & Climb",
     description:
       "Weekly leaderboards and leagues let you compete with chapter members. Nothing motivates like a little friendly competition.",
-    gradient: "from-yellow-500/20 to-yellow-600/10",
-    iconColor: "text-yellow-400",
-    iconBg: "bg-yellow-500/15",
+    gradient: "from-[#8B1A2D]/15 to-[#8B1A2D]/5",
+    iconColor: "text-[#8B1A2D]",
+    iconBg: "bg-[#8B1A2D]/15",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function Features() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-medium mb-4 border border-blue-100">
+          <span className="inline-block px-3 py-1 rounded-full bg-[#EFF3F9] text-[#1C3F6E] text-sm font-medium mb-4 border border-[#C8D8EE]">
             Features
           </span>
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">

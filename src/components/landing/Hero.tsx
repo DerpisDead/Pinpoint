@@ -6,29 +6,29 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 
 const AVATARS = ["A", "B", "C", "D", "E"];
 const AVATAR_COLORS = [
-  "bg-blue-500",
-  "bg-purple-500",
-  "bg-cyan-500",
-  "bg-emerald-500",
-  "bg-pink-500",
+  "bg-[#1C3F6E]",
+  "bg-[#8B1A2D]",
+  "bg-[#2C5490]",
+  "bg-[#6B1523]",
+  "bg-[#1C3F6E]",
 ];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0B1120]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0D1B3E]">
       {/* Background orbs */}
       <div
         className="orb-float-slow absolute top-1/4 -left-32 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ background: "radial-gradient(circle, #3B82F6, transparent)" }}
+        style={{ background: "radial-gradient(circle, #1C3F6E, transparent)" }}
       />
       <div
         className="orb-float-medium absolute top-1/3 right-0 w-80 h-80 rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ background: "radial-gradient(circle, #8B5CF6, transparent)" }}
+        style={{ background: "radial-gradient(circle, #8B1A2D, transparent)" }}
       />
       <div
         className="orb-float-slow absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none"
         style={{
-          background: "radial-gradient(circle, #06B6D4, transparent)",
+          background: "radial-gradient(circle, #1C3F6E, transparent)",
           animationDelay: "3s",
         }}
       />
@@ -37,7 +37,7 @@ export default function Hero() {
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(rgba(59,130,246,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.5) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(28,63,110,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,110,0.5) 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
@@ -49,9 +49,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-sm font-medium mb-8"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#1C3F6E]/40 bg-[#1C3F6E]/15 text-[#A8C4E8] text-sm font-medium mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#8B1A2D] animate-pulse" />
           Built for HOSA. Designed to Win.
         </motion.div>
 
@@ -89,7 +89,7 @@ export default function Hero() {
         >
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 text-white font-semibold px-8 py-3.5 rounded-full gradient-btn shadow-lg shadow-blue-500/30 text-base"
+            className="inline-flex items-center gap-2 text-white font-semibold px-8 py-3.5 rounded-full gradient-btn shadow-lg shadow-[#8B1A2D]/30 text-base"
           >
             Start Studying Free
             <ArrowRight size={18} />
@@ -114,7 +114,7 @@ export default function Hero() {
             {AVATARS.map((letter, i) => (
               <div
                 key={i}
-                className={`w-8 h-8 rounded-full ${AVATAR_COLORS[i]} border-2 border-[#0B1120] flex items-center justify-center text-white text-xs font-bold`}
+                className={`w-8 h-8 rounded-full ${AVATAR_COLORS[i]} border-2 border-[#0D1B3E] flex items-center justify-center text-white text-xs font-bold`}
               >
                 {letter}
               </div>
@@ -129,7 +129,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0B1120] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0D1B3E] to-transparent pointer-events-none" />
     </section>
   );
 }

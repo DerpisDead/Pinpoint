@@ -160,7 +160,7 @@ export default function ProfileHeader({
                     setLocalName(displayName ?? "");
                   }
                 }}
-                className="text-2xl font-bold text-gray-900 bg-transparent border-b-2 border-blue-500 outline-none w-48"
+                className="text-2xl font-bold text-gray-900 bg-transparent border-b-2 border-[#1C3F6E] outline-none w-48"
                 maxLength={40}
               />
               <button onClick={saveName} disabled={isSavingName} className="p-1 rounded-lg hover:bg-green-50">
@@ -188,7 +188,7 @@ export default function ProfileHeader({
 
         {/* Badges row */}
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2">
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-50 text-purple-600 border border-purple-100">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#F5EEF0] text-[#8B1A2D] border border-[#E9C8CE]">
             Level {level}
           </span>
           <span

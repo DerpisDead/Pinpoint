@@ -10,7 +10,7 @@ const testimonials = [
     name: "Priya M.",
     role: "HOSA State Qualifier · Medical Terminology",
     initials: "PM",
-    color: "bg-blue-500",
+    color: "bg-[#1C3F6E]",
   },
   {
     quote:
@@ -18,7 +18,7 @@ const testimonials = [
     name: "Jordan T.",
     role: "HOSA Chapter President · Pharmacology",
     initials: "JT",
-    color: "bg-purple-500",
+    color: "bg-[#8B1A2D]",
   },
   {
     quote:
@@ -26,7 +26,7 @@ const testimonials = [
     name: "Marcus L.",
     role: "HOSA Member · Health Career Display",
     initials: "ML",
-    color: "bg-cyan-500",
+    color: "bg-[#2C5490]",
   },
 ];
 
@@ -42,7 +42,7 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-sm font-medium mb-4 border border-blue-100">
+          <span className="inline-block px-3 py-1 rounded-full bg-[#EFF3F9] text-[#1C3F6E] text-sm font-medium mb-4 border border-[#C8D8EE]">
             Social Proof
           </span>
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">

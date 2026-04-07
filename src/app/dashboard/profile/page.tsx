@@ -139,9 +139,9 @@ export default async function ProfilePage() {
       <section>
         <h2 className="text-base font-semibold text-gray-900 mb-3">Stats</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <StatCard icon={<BookOpen size={16} className="text-blue-500" />} bg="bg-blue-50"
+          <StatCard icon={<BookOpen size={16} className="text-[#1C3F6E]" />} bg="bg-[#EFF3F9]"
             value={(totalReviewCount ?? 0).toLocaleString()} label="Cards Reviewed" />
-          <StatCard icon={<ClipboardCheck size={16} className="text-purple-500" />} bg="bg-purple-50"
+          <StatCard icon={<ClipboardCheck size={16} className="text-[#8B1A2D]" />} bg="bg-[#F5EEF0]"
             value={tests.length.toLocaleString()} label="Tests Completed" />
           <StatCard icon={<Flame size={16} className="text-orange-500" />} bg="bg-orange-50"
             value={`${profile.current_streak}d`} label="Current Streak"
@@ -172,7 +172,7 @@ export default async function ProfilePage() {
         <section>
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-base font-semibold text-gray-900">Earned Badges</h2>
-            <Link href="/dashboard/badges" className="text-xs text-blue-500 hover:text-blue-700 font-medium transition-colors">
+            <Link href="/dashboard/badges" className="text-xs text-[#1C3F6E] hover:text-[#0D1B3E] font-medium transition-colors">
               View All →
             </Link>
           </div>
@@ -207,7 +207,7 @@ export default async function ProfilePage() {
                   <p className="text-xs text-gray-400 truncate">{item.sub}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-xs font-medium text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded-full">
+                  <span className="text-xs font-medium text-[#8B1A2D] bg-[#F5EEF0] px-1.5 py-0.5 rounded-full">
                     +{item.xp} XP
                   </span>
                   <span className="text-xs text-gray-400">{timeAgo(item.time)}</span>
@@ -223,7 +223,7 @@ export default async function ProfilePage() {
         <section>
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-base font-semibold text-gray-900">My Study Guides</h2>
-            <Link href="/dashboard/community/upload" className="text-xs text-blue-500 hover:text-blue-700 font-medium transition-colors">
+            <Link href="/dashboard/community/upload" className="text-xs text-[#1C3F6E] hover:text-[#0D1B3E] font-medium transition-colors">
               Upload New →
             </Link>
           </div>
@@ -273,10 +273,10 @@ export default async function ProfilePage() {
 
 function UploadFileIcon({ type }: { type: string }) {
   if (type === "pdf") return <FileText size={16} className="text-red-500" />;
-  if (type === "docx") return <FileText size={16} className="text-blue-500" />;
+  if (type === "docx") return <FileText size={16} className="text-[#1C3F6E]" />;
   if (type === "pptx") return <FileText size={16} className="text-orange-500" />;
   if (type === "xlsx") return <FileSpreadsheet size={16} className="text-green-600" />;
-  if (type === "png" || type === "jpg") return <Image size={16} className="text-purple-500" />;
+  if (type === "png" || type === "jpg") return <Image size={16} className="text-[#8B1A2D]" />;
   return <File size={16} className="text-gray-400" />;
 }
 

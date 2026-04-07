@@ -151,8 +151,8 @@ export default function TypeAnswerGame({
         />
 
         <div className="flex flex-col items-center py-8 space-y-4">
-          <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
-            <Trophy size={32} className="text-blue-500" />
+          <div className="w-16 h-16 rounded-full bg-[#EFF3F9] flex items-center justify-center">
+            <Trophy size={32} className="text-[#1C3F6E]" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">Done!</h2>
           <div className="flex gap-6 text-sm text-gray-500">
@@ -204,7 +204,7 @@ export default function TypeAnswerGame({
           </Link>
           <Link
             href={`/dashboard/event/${eventId}`}
-            className="px-5 py-2.5 rounded-full border border-gray-200 text-gray-700 font-semibold text-sm hover:border-blue-300 hover:text-blue-600 transition-colors"
+            className="px-5 py-2.5 rounded-full border border-gray-200 text-gray-700 font-semibold text-sm hover:border-[#1C3F6E]/40 hover:text-[#1C3F6E] transition-colors"
           >
             Back to Event
           </Link>

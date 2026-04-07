@@ -30,7 +30,7 @@ export default function AppHeader({ profile }: Props) {
           <input
             type="text"
             placeholder="Search cards, events…"
-            className="w-full pl-9 pr-4 py-2 rounded-full border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-colors"
+            className="w-full pl-9 pr-4 py-2 rounded-full border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors"
           />
         </div>
       </div>
@@ -38,7 +38,7 @@ export default function AppHeader({ profile }: Props) {
       {/* User */}
       <Link href="/dashboard/profile" aria-label="Go to profile" className="flex items-center gap-2.5 group">
         {/* XP badge */}
-        <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 text-purple-600 border border-purple-100">
+        <span className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F5EEF0] text-[#8B1A2D] border border-[#E9C8CE]">
           ⚡ {profile?.total_xp ?? 0} XP
         </span>
 

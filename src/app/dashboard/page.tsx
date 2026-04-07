@@ -169,7 +169,7 @@ export default async function DashboardPage() {
       sub: r.cards?.events?.name ?? "HOSA Event",
       time: r.reviewed_at,
       quality: r.quality,
-      eventColor: r.cards?.events?.color ?? "#3B82F6",
+      eventColor: r.cards?.events?.color ?? "#1C3F6E",
     })),
     ...recentTests.map((t) => ({
       kind: "test" as const,
@@ -178,7 +178,7 @@ export default async function DashboardPage() {
       sub: `${t.score}/${t.total_questions} correct`,
       time: t.completed_at,
       pct: Math.round((t.score / (t.total_questions || 1)) * 100),
-      eventColor: t.events?.color ?? "#8B5CF6",
+      eventColor: t.events?.color ?? "#8B1A2D",
     })),
   ]
     .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
@@ -218,8 +218,8 @@ export default async function DashboardPage() {
             }
           />
           <StatCard
-            icon={<Clock size={18} className="text-blue-500" />}
-            iconBg="bg-blue-50"
+            icon={<Clock size={18} className="text-[#1C3F6E]" />}
+            iconBg="bg-[#EFF3F9]"
             value={dueCount}
             label="Cards Due"
             sub={dueCount === 0 ? "All caught up!" : "Ready to review"}
@@ -227,8 +227,8 @@ export default async function DashboardPage() {
           />
           <div className="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center">
-                <Zap size={18} className="text-purple-500" />
+              <div className="w-9 h-9 rounded-xl bg-[#F5EEF0] flex items-center justify-center">
+                <Zap size={18} className="text-[#8B1A2D]" />
               </div>
               <span
                 className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${leagueProgress.league.bgClass} ${leagueProgress.league.textClass} ${leagueProgress.league.borderClass}`}
@@ -245,7 +245,7 @@ export default async function DashboardPage() {
                   className="h-full rounded-full progress-animated"
                   style={{
                     width: `${levelInfo.progress}%`,
-                    background: "linear-gradient(90deg, #8B5CF6, #3B82F6)",
+                    background: "linear-gradient(90deg, #1C3F6E, #8B1A2D)",
                   }}
                 />
               </div>
@@ -272,7 +272,7 @@ export default async function DashboardPage() {
           </h2>
           <Link
             href="/onboarding"
-            className="flex items-center gap-1 text-xs text-blue-500 hover:text-blue-700 font-medium transition-colors"
+            className="flex items-center gap-1 text-xs text-[#1C3F6E] hover:text-[#0D1B3E] font-medium transition-colors"
           >
             <Plus size={13} />
             Add Events
@@ -324,7 +324,7 @@ export default async function DashboardPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">{mastery}% mastered</span>
                   {stats.due > 0 && (
-                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-600">
+                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-[#EFF3F9] text-[#1C3F6E]">
                       {stats.due} due
                     </span>
                   )}
@@ -343,11 +343,11 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Link
             href="/dashboard/study"
-            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-blue-100 transition-all duration-200"
+            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-[#1C3F6E]/20 transition-all duration-200"
           >
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                <BookOpen size={20} className="text-blue-600" />
+              <div className="w-11 h-11 rounded-xl bg-[#EFF3F9] flex items-center justify-center group-hover:bg-[#D6E4F3] transition-colors">
+                <BookOpen size={20} className="text-[#1C3F6E]" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Study Now</p>
@@ -358,16 +358,16 @@ export default async function DashboardPage() {
                 </p>
               </div>
             </div>
-            <ArrowRight size={18} className="text-gray-300 group-hover:text-blue-400 transition-colors" />
+            <ArrowRight size={18} className="text-gray-300 group-hover:text-[#1C3F6E] transition-colors" />
           </Link>
 
           <Link
             href="/dashboard/practice-test"
-            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-purple-100 transition-all duration-200"
+            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-[#8B1A2D]/20 transition-all duration-200"
           >
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
-                <ClipboardCheck size={20} className="text-purple-600" />
+              <div className="w-11 h-11 rounded-xl bg-[#F5EEF0] flex items-center justify-center group-hover:bg-[#EAD5D9] transition-colors">
+                <ClipboardCheck size={20} className="text-[#8B1A2D]" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Practice Test</p>
@@ -376,7 +376,7 @@ export default async function DashboardPage() {
                 </p>
               </div>
             </div>
-            <ArrowRight size={18} className="text-gray-300 group-hover:text-purple-400 transition-colors" />
+            <ArrowRight size={18} className="text-gray-300 group-hover:text-[#8B1A2D] transition-colors" />
           </Link>
         </div>
       </section>
@@ -463,7 +463,7 @@ function StatCard({
   return (
     <div
       className={`bg-white rounded-2xl border p-4 flex flex-col gap-3 ${
-        highlight ? "border-blue-200 shadow-sm shadow-blue-50" : "border-gray-100"
+        highlight ? "border-[#1C3F6E]/30 shadow-sm shadow-[#1C3F6E]/5" : "border-gray-100"
       }`}
     >
       <div className={`w-9 h-9 rounded-xl ${iconBg} flex items-center justify-center`}>

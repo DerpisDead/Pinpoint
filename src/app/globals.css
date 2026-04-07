@@ -47,12 +47,11 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* PinPoint brand colors */
-  --color-navy: #0B1120;
-  --color-electric-blue: #3B82F6;
-  --color-vibrant-purple: #8B5CF6;
-  --color-cyan: #06B6D4;
-  --color-emerald: #10B981;
+  /* HOSA brand colors */
+  --color-hosa-navy: #1C3F6E;
+  --color-hosa-maroon: #8B1A2D;
+  --color-hosa-dark: #0D1B3E;
+  --color-medical-white: #F8F9FA;
 }
 
 :root {
@@ -145,7 +144,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #3B82F6, #8B5CF6, #06B6D4, #3B82F6);
+  background: linear-gradient(135deg, #1C3F6E, #8B1A2D, #1C3F6E);
   background-size: 300% 300%;
   animation: gradient-shift 4s ease infinite;
   -webkit-background-clip: text;
@@ -154,7 +153,7 @@
 }
 
 .gradient-btn {
-  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  background: linear-gradient(135deg, #1C3F6E, #8B1A2D);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -172,8 +171,8 @@
 .glass-card-light {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(59, 130, 246, 0.1);
-  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.06);
+  border: 1px solid rgba(28, 63, 110, 0.1);
+  box-shadow: 0 4px 24px rgba(28, 63, 110, 0.06);
 }
 
 /* Floating orb animations */
@@ -306,5 +305,5 @@
 /* ── Focus ring utilities ──────────────────────────────────────────── */
 .focus-ring:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 0 3px rgba(28, 63, 110, 0.35);
 }

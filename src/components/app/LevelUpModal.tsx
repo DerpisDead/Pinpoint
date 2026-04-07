@@ -14,7 +14,7 @@ export default function LevelUpModal({ level, isVisible, onDismiss }: Props) {
   useEffect(() => {
     if (!isVisible) return;
     import("canvas-confetti").then(({ default: confetti }) => {
-      confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 }, colors: ["#3B82F6", "#8B5CF6", "#F59E0B", "#10B981"] });
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 }, colors: ["#1C3F6E", "#8B1A2D", "#F59E0B", "#C8D8EE"] });
       setTimeout(() => {
         confetti({ particleCount: 50, angle: 60, spread: 60, origin: { x: 0, y: 0.5 } });
         confetti({ particleCount: 50, angle: 120, spread: 60, origin: { x: 1, y: 0.5 } });
@@ -62,7 +62,7 @@ export default function LevelUpModal({ level, isVisible, onDismiss }: Props) {
               LEVEL UP!
             </h2>
 
-            <div className="w-24 h-24 rounded-full gradient-btn flex items-center justify-center mx-auto mb-4 shadow-xl shadow-blue-500/30">
+            <div className="w-24 h-24 rounded-full gradient-btn flex items-center justify-center mx-auto mb-4 shadow-xl shadow-[#8B1A2D]/30">
               <span className="text-4xl font-black text-white">{level}</span>
             </div>
 
@@ -72,7 +72,7 @@ export default function LevelUpModal({ level, isVisible, onDismiss }: Props) {
 
             <button
               onClick={onDismiss}
-              className="w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/25"
+              className="w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/25"
             >
               Continue →
             </button>

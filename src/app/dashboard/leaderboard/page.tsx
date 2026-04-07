@@ -55,7 +55,7 @@ function LeagueBadge({ league }: { league: string }) {
 
 function LevelBadge({ level }: { level: number }) {
   return (
-    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-purple-50 text-purple-600 border border-purple-100">
+    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-[#F5EEF0] text-[#8B1A2D] border border-[#E9C8CE]">
       Lv.{level}
     </span>
   );
@@ -80,7 +80,7 @@ function LeaderboardRow({
     <div
       className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
         isCurrentUser
-          ? "bg-blue-50 border border-blue-100"
+          ? "bg-[#EFF3F9] border border-[#C8D8EE]"
           : medal
           ? `${medal.bg} border ${medal.border}`
           : "bg-white border border-gray-50 hover:bg-gray-50"
@@ -105,7 +105,7 @@ function LeaderboardRow({
             {entry.display_name ?? "Anonymous"}
           </span>
           {isCurrentUser && (
-            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-600">
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#EFF3F9] text-[#1C3F6E]">
               You
             </span>
           )}
@@ -158,7 +158,7 @@ function Podium({
             </div>
             {/* Name */}
             <div className="text-center">
-              <p className={`text-xs font-semibold truncate max-w-[90px] ${isCurrentUser ? "text-blue-600" : "text-gray-800"}`}>
+              <p className={`text-xs font-semibold truncate max-w-[90px] ${isCurrentUser ? "text-[#1C3F6E]" : "text-gray-800"}`}>
                 {entry.display_name ?? "Anonymous"}
                 {isCurrentUser && " (you)"}
               </p>
