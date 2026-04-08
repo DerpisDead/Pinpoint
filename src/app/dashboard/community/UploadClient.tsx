@@ -228,11 +228,11 @@ export default function UploadClient({ userId, events }: Props) {
             onDrop={handleDrop}
             className={`flex flex-col items-center justify-center gap-2 px-4 py-10 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
               isDragging
-                ? "border-blue-400 bg-blue-50"
+                ? "border-[#1C3F6E] bg-[#EFF3F9]"
                 : "border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-white"
             }`}
           >
-            <Upload size={24} className={isDragging ? "text-blue-500" : "text-gray-400"} />
+            <Upload size={24} className={isDragging ? "text-[#1C3F6E]" : "text-gray-400"} />
             <p className="text-sm font-medium text-gray-700">
               {isDragging ? "Drop to upload" : "Drag file here or click to browse"}
             </p>
@@ -266,7 +266,7 @@ export default function UploadClient({ userId, events }: Props) {
       <button
         type="submit"
         disabled={!file || !title.trim() || !eventId || uploading}
-        className="flex items-center gap-2 px-6 py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-lg shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+        className="flex items-center gap-2 px-6 py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-lg shadow-[#8B1A2D]/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
         {uploading ? (
           <><Loader2 size={15} className="animate-spin" /> Uploading…</>

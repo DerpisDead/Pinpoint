@@ -21,14 +21,14 @@ function isDue(card: BrowsableCard, now: string) {
 const STATUS_DOT: Record<string, string> = {
   new:       "bg-red-400",
   learning:  "bg-yellow-400",
-  reviewing: "bg-blue-400",
+  reviewing: "bg-[#1C3F6E]",
   mastered:  "bg-green-500",
 };
 
 const STATUS_BADGE: Record<string, string> = {
   new:       "bg-red-50 text-red-600",
   learning:  "bg-yellow-50 text-yellow-700",
-  reviewing: "bg-blue-50 text-blue-600",
+  reviewing: "bg-[#EFF3F9] text-[#1C3F6E]",
   mastered:  "bg-green-50 text-green-700",
 };
 
@@ -128,7 +128,7 @@ export default function CardBrowserClient({
           placeholder="Search front or back…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300 transition-colors bg-white"
+          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors bg-white"
         />
       </div>
 
@@ -141,7 +141,7 @@ export default function CardBrowserClient({
             className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors flex items-center gap-1.5 ${
               filter === key
                 ? "bg-blue-600 text-white"
-                : "bg-white border border-gray-200 text-gray-500 hover:border-blue-300 hover:text-blue-600"
+                : "bg-white border border-gray-200 text-gray-500 hover:border-[#1C3F6E]/40 hover:text-[#1C3F6E]"
             }`}
           >
             {key !== "all" && key !== "due" && (
@@ -169,7 +169,7 @@ export default function CardBrowserClient({
               <button
                 key={card.id}
                 onClick={() => setSelected(card)}
-                className="w-full text-left bg-white rounded-2xl border border-gray-100 p-4 hover:border-blue-200 hover:shadow-sm transition-all"
+                className="w-full text-left bg-white rounded-2xl border border-gray-100 p-4 hover:border-[#1C3F6E]/20 hover:shadow-sm transition-all"
               >
                 <div className="flex items-start gap-3">
                   {/* Color dot */}

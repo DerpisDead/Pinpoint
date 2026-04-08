@@ -18,7 +18,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0B1120]/90 backdrop-blur-md border-b border-white/10 shadow-lg shadow-black/20"
+          ? "bg-[#0D1B3E]/90 backdrop-blur-md border-b border-white/10 shadow-lg shadow-black/20"
           : "bg-transparent"
       }`}
     >
@@ -54,7 +54,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/signup"
-            className="text-sm font-semibold text-white px-5 py-2 rounded-full gradient-btn shadow-lg shadow-blue-500/25"
+            className="text-sm font-semibold text-white px-5 py-2 rounded-full gradient-btn shadow-lg shadow-[#8B1A2D]/25"
           >
             Get Started Free
           </Link>
@@ -72,7 +72,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#0B1120]/95 backdrop-blur-md border-t border-white/10 px-4 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-[#0D1B3E]/95 backdrop-blur-md border-t border-white/10 px-4 py-4 flex flex-col gap-4">
           {["Features", "How It Works", "Pricing"].map((item) => (
             <Link
               key={item}

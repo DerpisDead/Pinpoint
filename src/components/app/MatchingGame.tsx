@@ -169,8 +169,8 @@ export default function MatchingGame({
               isWrong
                 ? "border-red-400 bg-red-50 text-red-700 animate-shake"
                 : isSelected
-                ? "border-blue-500 bg-blue-50 text-blue-900 shadow-md"
-                : "border-gray-200 bg-white text-gray-800 hover:border-blue-300 hover:bg-blue-50"
+                ? "border-[#1C3F6E] bg-[#EFF3F9] text-gray-900 shadow-md"
+                : "border-gray-200 bg-white text-gray-800 hover:border-[#1C3F6E]/40 hover:bg-[#EFF3F9]"
             }`}
           >
             <span className="leading-snug">{tile.text}</span>
@@ -206,7 +206,7 @@ export default function MatchingGame({
           </Link>
           <Link
             href={`/dashboard/event/${eventId}`}
-            className="px-5 py-2.5 rounded-full border border-gray-200 text-gray-700 font-semibold text-sm hover:border-blue-300 hover:text-blue-600 transition-colors"
+            className="px-5 py-2.5 rounded-full border border-gray-200 text-gray-700 font-semibold text-sm hover:border-[#1C3F6E]/40 hover:text-[#1C3F6E] transition-colors"
           >
             Back to Event
           </Link>

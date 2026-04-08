@@ -81,9 +81,6 @@ export default function SignupPage() {
 
     setSuccess(true);
     setLoading(false);
-
-    // If email confirmation is disabled in Supabase, go straight to dashboard
-    setTimeout(() => router.push("/dashboard"), 2000);
   }
 
   if (success) {
@@ -182,7 +179,7 @@ export default function SignupPage() {
                 required
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors"
                 placeholder="Your name"
               />
             </div>
@@ -201,7 +198,7 @@ export default function SignupPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors"
                 placeholder="you@example.com"
               />
             </div>
@@ -221,7 +218,7 @@ export default function SignupPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors"
+                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors"
                   placeholder="Create a password"
                 />
                 <button
@@ -239,7 +236,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+              className="w-full py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
             >
               {loading ? (
                 <>
@@ -266,7 +263,7 @@ export default function SignupPage() {
 
           <Link
             href="/login"
-            className="block w-full text-center py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-medium hover:border-blue-300 hover:text-blue-600 transition-colors"
+            className="block w-full text-center py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-medium hover:border-[#1C3F6E]/40 hover:text-[#1C3F6E] transition-colors"
           >
             Sign in instead
           </Link>

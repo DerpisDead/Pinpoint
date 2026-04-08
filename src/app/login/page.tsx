@@ -47,7 +47,7 @@ function LoginForm() {
     const supabase = createClient();
     const { error: signInError } = await supabase.auth.signInAnonymously();
     if (signInError) {
-      setError("Guest login failed. Enable 'Anonymous sign-ins' in Supabase Auth → Providers.");
+      setError(`Guest login failed: ${signInError.message}`);
       setLoading(false);
       return;
     }
@@ -157,7 +157,7 @@ function LoginForm() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors"
                 placeholder="you@example.com"
               />
             </div>
@@ -172,7 +172,7 @@ function LoginForm() {
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-xs text-blue-500 hover:text-blue-600 transition-colors"
+                  className="text-xs text-[#1C3F6E] hover:text-[#0D1B3E] transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -185,7 +185,7 @@ function LoginForm() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors"
+                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]/20 focus:border-[#1C3F6E]/40 transition-colors"
                   placeholder="Enter your password"
                 />
                 <button
@@ -202,7 +202,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2 btn-scale focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full py-2.5 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2 btn-scale focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]"
             >
               {loading ? (
                 <>
@@ -229,7 +229,7 @@ function LoginForm() {
 
           <Link
             href="/signup"
-            className="block w-full text-center py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-medium hover:border-blue-300 hover:text-blue-600 transition-colors"
+            className="block w-full text-center py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-medium hover:border-[#1C3F6E]/40 hover:text-[#1C3F6E] transition-colors"
           >
             Create a free account
           </Link>

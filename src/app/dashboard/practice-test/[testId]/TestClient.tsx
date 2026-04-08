@@ -380,7 +380,7 @@ export default function TestClient({
             {/* Meta row */}
             <div className="flex items-center justify-center gap-5 mt-5 pt-4 border-t border-gray-50">
               <div className="text-center">
-                <p className="text-lg font-bold text-purple-600">
+                <p className="text-lg font-bold text-[#8B1A2D]">
                   +{savedXp || xpEarned}
                 </p>
                 <p className="text-xs text-gray-400">XP Earned</p>
@@ -454,7 +454,7 @@ export default function TestClient({
             )}
             <Link
               href={`/dashboard/practice-test/${eventId}?count=${total}&timed=${timedMode}`}
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/20"
             >
               <RotateCcw size={15} />
               Try Again
@@ -623,7 +623,7 @@ export default function TestClient({
           {hasAnswered && (
             <button
               onClick={handleNext}
-              className="w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/20 flex items-center justify-center gap-2"
             >
               {isLastQuestion ? "Finish Test" : "Next Question"}
               <span className="opacity-60 text-xs font-normal">

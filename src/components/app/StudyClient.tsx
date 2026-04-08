@@ -59,9 +59,9 @@ const RATINGS = [
     quality: 4,
     label: "Good",
     key: "3",
-    ring: "ring-blue-300",
-    bg: "bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700",
-    dot: "bg-blue-400",
+    ring: "ring-[#1C3F6E]/40",
+    bg: "bg-[#EFF3F9] hover:bg-[#D6E4F3] border-[#C8D8EE] text-[#1C3F6E]",
+    dot: "bg-[#1C3F6E]",
   },
   {
     quality: 5,
@@ -120,7 +120,7 @@ export default function StudyClient({
         particleCount: 140,
         spread: 75,
         origin: { y: 0.55 },
-        colors: ["#3B82F6", "#8B5CF6", "#06B6D4", "#10B981", "#F59E0B"],
+        colors: ["#1C3F6E", "#8B1A2D", "#C8D8EE", "#F59E0B", "#10B981"],
       });
       setTimeout(() => {
         confetti({
@@ -128,14 +128,14 @@ export default function StudyClient({
           angle: 60,
           spread: 55,
           origin: { x: 0, y: 0.6 },
-          colors: ["#3B82F6", "#8B5CF6"],
+          colors: ["#1C3F6E", "#8B1A2D"],
         });
         confetti({
           particleCount: 60,
           angle: 120,
           spread: 55,
           origin: { x: 1, y: 0.6 },
-          colors: ["#06B6D4", "#10B981"],
+          colors: ["#C8D8EE", "#F59E0B"],
         });
       }, 250);
     });
@@ -332,8 +332,8 @@ export default function StudyClient({
                 <StatPill
                   value={sessionStats.reviewed}
                   label="Reviewed"
-                  color="text-blue-600"
-                  bg="bg-blue-50"
+                  color="text-[#1C3F6E]"
+                  bg="bg-[#EFF3F9]"
                 />
                 <StatPill
                   value={`${accuracy}%`}
@@ -356,8 +356,8 @@ export default function StudyClient({
                 <StatPill
                   value={`+${sessionStats.xpEarned}`}
                   label="XP Earned"
-                  color="text-purple-600"
-                  bg="bg-purple-50"
+                  color="text-[#8B1A2D]"
+                  bg="bg-[#F5EEF0]"
                 />
               </div>
 
@@ -369,7 +369,7 @@ export default function StudyClient({
               <div className="flex flex-col gap-2 pt-2">
                 <Link
                   href={`${backHref}/study`}
-                  className="flex items-center justify-center gap-2 py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20"
+                  className="flex items-center justify-center gap-2 py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/20"
                   onClick={() => {
                     setDone(false);
                     setIndex(0);
@@ -456,13 +456,13 @@ export default function StudyClient({
                   className="h-full rounded-full transition-all duration-300"
                   style={{
                     width: `${progress}%`,
-                    backgroundColor: currentCard?.eventColor ?? "#3B82F6",
+                    backgroundColor: currentCard?.eventColor ?? "#1C3F6E",
                   }}
                 />
               </div>
             </div>
 
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 text-purple-600 border border-purple-100 shrink-0">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F5EEF0] text-[#8B1A2D] border border-[#E9C8CE] shrink-0">
               ⚡ {totalXp}
             </span>
           </div>
@@ -502,7 +502,7 @@ export default function StudyClient({
                   <div
                     className="h-1.5 w-full shrink-0"
                     style={{
-                      backgroundColor: currentCard?.eventColor ?? "#3B82F6",
+                      backgroundColor: currentCard?.eventColor ?? "#1C3F6E",
                     }}
                   />
                   <div className="flex-1 flex items-center justify-center p-8">
@@ -521,7 +521,7 @@ export default function StudyClient({
                   <div
                     className="h-1.5 w-full shrink-0"
                     style={{
-                      backgroundColor: currentCard?.eventColor ?? "#3B82F6",
+                      backgroundColor: currentCard?.eventColor ?? "#1C3F6E",
                     }}
                   />
                   <div className="flex-1 flex items-center justify-center p-8">
@@ -583,7 +583,7 @@ export default function StudyClient({
               <button
                 onClick={() => !isAnimating && setIsFlipped(true)}
                 aria-label="Show answer"
-                className="mt-5 w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 btn-scale focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-5 w-full py-3 rounded-full gradient-btn text-white font-semibold text-sm shadow-md shadow-[#8B1A2D]/20 flex items-center justify-center gap-2 btn-scale focus:outline-none focus:ring-2 focus:ring-[#1C3F6E]"
               >
                 Show Answer
                 <span className="opacity-60 text-xs font-normal">[Space]</span>

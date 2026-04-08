@@ -49,13 +49,13 @@ export default function AppSidebar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1C3F6E] ${
                 isActive(href)
-                  ? "bg-blue-50 text-blue-600"
+                  ? "bg-[#1C3F6E] text-white"
                   : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
-              <Icon size={18} className={isActive(href) ? "text-blue-600" : "text-gray-400"} />
+              <Icon size={18} className={isActive(href) ? "text-white" : "text-gray-400"} />
               {label}
             </Link>
           ))}
@@ -79,7 +79,7 @@ export default function AppSidebar() {
             key={href}
             href={href}
             className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-[10px] font-medium transition-colors ${
-              isActive(href) ? "text-blue-600" : "text-gray-400"
+              isActive(href) ? "text-[#1C3F6E]" : "text-gray-400"
             }`}
           >
             <Icon size={20} strokeWidth={isActive(href) ? 2.5 : 1.5} />
