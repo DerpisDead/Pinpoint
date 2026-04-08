@@ -218,8 +218,8 @@ export default async function DashboardPage() {
             }
           />
           <StatCard
-            icon={<Clock size={18} className="text-[#1C3F6E]" />}
-            iconBg="bg-[#EFF3F9]"
+            icon={<Clock size={18} className="text-gray-400" />}
+            iconBg="bg-gray-50"
             value={dueCount}
             label="Cards Due"
             sub={dueCount === 0 ? "All caught up!" : "Ready to review"}
@@ -227,8 +227,8 @@ export default async function DashboardPage() {
           />
           <div className="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-[#F5EEF0] flex items-center justify-center">
-                <Zap size={18} className="text-[#8B1A2D]" />
+              <div className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center">
+                <Zap size={18} className="text-gray-400" />
               </div>
               <span
                 className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${leagueProgress.league.bgClass} ${leagueProgress.league.textClass} ${leagueProgress.league.borderClass}`}
@@ -255,8 +255,8 @@ export default async function DashboardPage() {
             </div>
           </div>
           <StatCard
-            icon={<Target size={18} className="text-emerald-500" />}
-            iconBg="bg-emerald-50"
+            icon={<Target size={18} className="text-gray-400" />}
+            iconBg="bg-gray-50"
             value={`${overallMastery}%`}
             label="Mastery"
             sub={`${userCards.length} cards total`}
@@ -343,11 +343,11 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Link
             href="/dashboard/study"
-            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-[#1C3F6E]/20 transition-all duration-200"
+            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200"
           >
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-[#EFF3F9] flex items-center justify-center group-hover:bg-[#D6E4F3] transition-colors">
-                <BookOpen size={20} className="text-[#1C3F6E]" />
+              <div className="w-11 h-11 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                <BookOpen size={20} className="text-gray-500" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Study Now</p>
@@ -358,16 +358,16 @@ export default async function DashboardPage() {
                 </p>
               </div>
             </div>
-            <ArrowRight size={18} className="text-gray-300 group-hover:text-[#1C3F6E] transition-colors" />
+            <ArrowRight size={18} className="text-gray-300 group-hover:text-gray-500 transition-colors" />
           </Link>
 
           <Link
             href="/dashboard/practice-test"
-            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-[#8B1A2D]/20 transition-all duration-200"
+            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all duration-200"
           >
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-[#F5EEF0] flex items-center justify-center group-hover:bg-[#EAD5D9] transition-colors">
-                <ClipboardCheck size={20} className="text-[#8B1A2D]" />
+              <div className="w-11 h-11 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                <ClipboardCheck size={20} className="text-gray-500" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Practice Test</p>
@@ -376,7 +376,7 @@ export default async function DashboardPage() {
                 </p>
               </div>
             </div>
-            <ArrowRight size={18} className="text-gray-300 group-hover:text-[#8B1A2D] transition-colors" />
+            <ArrowRight size={18} className="text-gray-300 group-hover:text-gray-500 transition-colors" />
           </Link>
         </div>
       </section>

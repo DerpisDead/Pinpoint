@@ -14,6 +14,7 @@ const CATEGORIES = [
   "Emergency Preparedness",
   "Leadership",
   "Teamwork",
+  "Recognition",
 ] as const;
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -22,6 +23,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Emergency Preparedness": "#F59E0B",
   "Leadership": "#10B981",
   "Teamwork": "#EC4899",
+  "Recognition": "#6366F1",
 };
 
 type Props = {

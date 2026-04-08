@@ -42,6 +42,97 @@ export default function Hero() {
         }}
       />
 
+      {/* EKG waveform 1 — 12% opacity */}
+      <svg
+        className="absolute left-0 right-0 w-full pointer-events-none"
+        style={{ top: "38%", opacity: 0.12 }}
+        viewBox="0 0 1200 60"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0,30 L120,30 L140,30 L155,18 L165,30 L175,30 L185,30 L195,2 L205,58 L215,30 L225,38 L235,30 L260,30 L380,30 L400,30 L415,18 L425,30 L435,30 L445,30 L455,2 L465,58 L475,30 L485,38 L495,30 L520,30 L640,30 L660,30 L675,18 L685,30 L695,30 L705,30 L715,2 L725,58 L735,30 L745,38 L755,30 L780,30 L900,30 L920,30 L935,18 L945,30 L955,30 L965,30 L975,2 L985,58 L995,30 L1005,38 L1015,30 L1040,30 L1200,30"
+          fill="none"
+          stroke="#A8C4E8"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+
+      {/* EKG waveform 2 — 8% opacity, offset */}
+      <svg
+        className="absolute left-0 right-0 w-full pointer-events-none"
+        style={{ top: "58%", opacity: 0.08 }}
+        viewBox="0 0 1200 60"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0,30 L40,30 L55,18 L65,30 L75,30 L85,30 L95,2 L105,58 L115,30 L125,38 L135,30 L160,30 L280,30 L300,30 L315,18 L325,30 L335,30 L345,30 L355,2 L365,58 L375,30 L385,38 L395,30 L420,30 L540,30 L560,30 L575,18 L585,30 L595,30 L605,30 L615,2 L625,58 L635,30 L645,38 L655,30 L680,30 L800,30 L820,30 L835,18 L845,30 L855,30 L865,30 L875,2 L885,58 L895,30 L905,38 L915,30 L940,30 L1200,30"
+          fill="none"
+          stroke="#A8C4E8"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+
+      {/* Rod of Asclepius — right side, 6% opacity */}
+      <svg
+        className="absolute pointer-events-none hidden sm:block"
+        style={{ right: "8%", top: "15%", opacity: 0.06, height: "70%" }}
+        viewBox="0 0 80 200"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="40" y1="10" x2="40" y2="195" stroke="white" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="40" cy="10" r="5" fill="none" stroke="white" strokeWidth="2" />
+        <path
+          d="M40,30 C60,40 60,55 40,65 C20,75 20,90 40,100 C60,110 60,125 40,135 C20,145 20,160 40,170 C60,180 60,190 50,195"
+          fill="none"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        <ellipse cx="50" cy="195" rx="5" ry="3.5" fill="none" stroke="white" strokeWidth="2" />
+        <path d="M53,194 L57,191 M53,196 L57,199" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+
+      {/* DNA Helix — left side, 5% opacity */}
+      <svg
+        className="absolute pointer-events-none hidden sm:block"
+        style={{ left: "6%", top: "10%", opacity: 0.05, height: "75%" }}
+        viewBox="0 0 60 240"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M30,0 C60,20 60,40 30,60 C0,80 0,100 30,120 C60,140 60,160 30,180 C0,200 0,220 30,240"
+          fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"
+        />
+        <path
+          d="M30,0 C0,20 0,40 30,60 C60,80 60,100 30,120 C0,140 0,160 30,180 C60,200 60,220 30,240"
+          fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"
+        />
+        <line x1="8" y1="30" x2="52" y2="30" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+        <line x1="8" y1="90" x2="52" y2="90" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+        <line x1="8" y1="150" x2="52" y2="150" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+        <line x1="8" y1="210" x2="52" y2="210" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+      </svg>
+
+      {/* Star of Life — bottom-right corner, 4% opacity */}
+      <svg
+        className="absolute pointer-events-none"
+        style={{ right: "3%", bottom: "8%", opacity: 0.04, width: 120, height: 120 }}
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g transform="translate(50,50)">
+          <rect x="-5" y="-40" width="10" height="80" rx="5" fill="white" />
+          <rect x="-5" y="-40" width="10" height="80" rx="5" fill="white" transform="rotate(60)" />
+          <rect x="-5" y="-40" width="10" height="80" rx="5" fill="white" transform="rotate(120)" />
+        </g>
+      </svg>
+
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-16">
         {/* Badge */}

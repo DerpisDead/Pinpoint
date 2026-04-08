@@ -65,9 +65,6 @@ export default function SignupPage() {
 
     setSuccess(true);
     setLoading(false);
-
-    // If email confirmation is disabled in Supabase, go straight to dashboard
-    setTimeout(() => router.push("/dashboard"), 2000);
   }
 
   if (success) {

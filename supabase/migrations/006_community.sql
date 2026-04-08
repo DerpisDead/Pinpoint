@@ -62,6 +62,7 @@ create index if not exists idx_study_guides_user_id    on public.study_guides(us
 create index if not exists idx_study_guides_event_id   on public.study_guides(event_id);
 create index if not exists idx_study_guides_created_at on public.study_guides(created_at desc);
 
+drop trigger if exists study_guides_updated_at on public.study_guides;
 create trigger study_guides_updated_at
   before update on public.study_guides
   for each row execute procedure public.set_updated_at();
