@@ -208,7 +208,7 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <StatCard
             icon={<Flame size={18} className="text-orange-500 flame-pulse" />}
-            iconBg="bg-orange-50"
+            iconBg="bg-gray-50"
             value={profile?.current_streak ?? 0}
             label="Day Streak"
             sub={
@@ -218,8 +218,8 @@ export default async function DashboardPage() {
             }
           />
           <StatCard
-            icon={<Clock size={18} className="text-blue-500" />}
-            iconBg="bg-blue-50"
+            icon={<Clock size={18} className="text-gray-400" />}
+            iconBg="bg-gray-50"
             value={dueCount}
             label="Cards Due"
             sub={dueCount === 0 ? "All caught up!" : "Ready to review"}
@@ -255,8 +255,8 @@ export default async function DashboardPage() {
             </div>
           </div>
           <StatCard
-            icon={<Target size={18} className="text-emerald-500" />}
-            iconBg="bg-emerald-50"
+            icon={<Target size={18} className="text-gray-400" />}
+            iconBg="bg-gray-50"
             value={`${overallMastery}%`}
             label="Mastery"
             sub={`${userCards.length} cards total`}
@@ -290,12 +290,8 @@ export default async function DashboardPage() {
                 key={event_id}
                 href={`/dashboard/event/${event_id}`}
                 className="snap-start shrink-0 w-52 bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
+                style={{ borderLeft: `3px solid ${ev.color}` }}
               >
-                {/* Color bar top */}
-                <div
-                  className="h-1.5 w-full rounded-full mb-3 opacity-80"
-                  style={{ backgroundColor: ev.color }}
-                />
 
                 <div className="flex items-center gap-2 mb-1">
                   <DynamicIcon
@@ -343,11 +339,11 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Link
             href="/dashboard/study"
-            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-blue-100 transition-all duration-200"
+            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md transition-all duration-200"
           >
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                <BookOpen size={20} className="text-blue-600" />
+              <div className="w-11 h-11 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                <BookOpen size={20} className="text-gray-500" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Study Now</p>
@@ -358,16 +354,16 @@ export default async function DashboardPage() {
                 </p>
               </div>
             </div>
-            <ArrowRight size={18} className="text-gray-300 group-hover:text-blue-400 transition-colors" />
+            <ArrowRight size={18} className="text-gray-300 group-hover:text-gray-600 transition-colors" />
           </Link>
 
           <Link
             href="/dashboard/practice-test"
-            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md hover:border-purple-100 transition-all duration-200"
+            className="group flex items-center justify-between bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md transition-all duration-200"
           >
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
-                <ClipboardCheck size={20} className="text-purple-600" />
+              <div className="w-11 h-11 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                <ClipboardCheck size={20} className="text-gray-500" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Practice Test</p>
@@ -376,7 +372,7 @@ export default async function DashboardPage() {
                 </p>
               </div>
             </div>
-            <ArrowRight size={18} className="text-gray-300 group-hover:text-purple-400 transition-colors" />
+            <ArrowRight size={18} className="text-gray-300 group-hover:text-gray-600 transition-colors" />
           </Link>
         </div>
       </section>
@@ -463,7 +459,7 @@ function StatCard({
   return (
     <div
       className={`bg-white rounded-2xl border p-4 flex flex-col gap-3 ${
-        highlight ? "border-blue-200 shadow-sm shadow-blue-50" : "border-gray-100"
+        highlight ? "border-gray-200 shadow-sm" : "border-gray-100"
       }`}
     >
       <div className={`w-9 h-9 rounded-xl ${iconBg} flex items-center justify-center`}>
